@@ -2,7 +2,7 @@ const RAD_TO_DEG = 57.2958; // convert radians to degrees
 const DEG_TO_RAD = 1 / RAD_TO_DEG;
 
 class Tank {
-  constructor(context, x=250, y=250, speed=1, rotationSpeed=3, scale=3) {
+  constructor(context, x=250, y=250, speed=2, rotationSpeed=3, scale=3) {
     this.x = x;
     this.y = y;
     this.context = context;
@@ -20,17 +20,19 @@ class Tank {
       this.direction += this.rotationSpeed;
     }
     if (keysPressed.forward) {
-      let moveX = Math.cos((this.direction - 90) * DEG_TO_RAD) * this.speed;
-      let moveY = Math.sin((this.direction - 90)* DEG_TO_RAD) * this.speed;
+      let moveX = Math.cos(this.direction * DEG_TO_RAD) * this.speed;
+      let moveY = Math.sin(this.direction * DEG_TO_RAD) * this.speed;
       this.x += moveX;
       this.y += moveY;
     }
     if (keysPressed.back) {
-      let moveX = Math.cos((this.direction + 90) * DEG_TO_RAD) * this.speed;
-      let moveY = Math.sin((this.direction + 90) * DEG_TO_RAD) * this.speed;
+      let moveX = Math.cos((this.direction + 180) * DEG_TO_RAD) * this.speed;
+      let moveY = Math.sin((this.direction + 180) * DEG_TO_RAD) * this.speed;
       this.x += moveX;
       this.y += moveY;
     }
+    this.x = clamp(this.x, 0, 500);
+    this.y = clamp(this.y, 0, 500);
   }
 
   draw() {
@@ -53,10 +55,10 @@ class Tank {
 
     this.context.beginPath();
     this.context.moveTo(-2.5, -2.5)
-    this.context.lineTo(2.5, -2.5);
-    this.context.lineTo(2.5, -7.5);
-    this.context.lineTo(0, -10);
-    this.context.lineTo(-2.5, -7.5);
+    this.context.lineTo(7.5, -2.5);
+    this.context.lineTo(10, 0);
+    this.context.lineTo(7.5, 2.5);
+    this.context.lineTo(-2.5, 2.5);
     this.context.lineTo(-2.5, -2.5);
 
     this.context.fill();
@@ -66,13 +68,23 @@ class Tank {
   }
 }
 
+// helper functions
+
+function clamp(value, min, max) {
+  if (value < min) return min;
+  if (value > max) return max;
+  return value;
+}
+
+// handling user input
+
 let keysPressed = {
   forward: false,
   right: false,
   left: false,
   back: false,
-  rotateRight: false,
-  rotateLeft: false
+  shooterRight: false,
+  shooterLeft: false
 }
 
 window.addEventListener("keydown", event => {
@@ -91,10 +103,10 @@ window.addEventListener("keydown", event => {
       keysPressed.right = true;
       break;
     case "ArrowRight":
-      keysPressed.rotateRight = true;
+      keysPressed.shooterRight = true;
       break;
     case "ArrowLeft":
-      keysPressed.rotateLeft = true;
+      keysPressed.shooterLeft = true;
       break;
   }
 });
@@ -115,10 +127,10 @@ window.addEventListener("keyup", event => {
       keysPressed.right = false;
       break;
     case "ArrowRight":
-      keysPressed.rotateRight = false;
+      keysPressed.shooterRight = false;
       break;
     case "ArrowLeft":
-      keysPressed.rotateLeft = false;
+      keysPressed.shooterLeft = false;
       break;
   }
 });
