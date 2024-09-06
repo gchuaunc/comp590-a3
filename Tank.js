@@ -10,6 +10,7 @@ class Tank {
     this.speed = speed;
     this.rotationSpeed = rotationSpeed;
     this.scale = scale;
+    this.cannon = new Cannon(context);
   }
 
   update() {
@@ -39,11 +40,16 @@ class Tank {
     //console.log("drawing tank " + this.x + ", " + this.y + " dir=" + this.direction)
     this.context.save();
 
+    // draw self
     this.context.translate(this.x, this.y);
     this.context.rotate(this.direction * DEG_TO_RAD);
     this.context.scale(this.scale, this.scale);
     this.drawBody();
     this.drawTreads();
+
+    // draw child: cannon
+    this.cannon.update();
+    this.cannon.draw();
 
     this.context.restore();
   }
@@ -95,8 +101,8 @@ let keysPressed = {
   right: false,
   left: false,
   back: false,
-  shooterRight: false,
-  shooterLeft: false
+  cannonRight: false,
+  cannonLeft: false
 }
 
 window.addEventListener("keydown", event => {
@@ -115,10 +121,10 @@ window.addEventListener("keydown", event => {
       keysPressed.right = true;
       break;
     case "ArrowRight":
-      keysPressed.shooterRight = true;
+      keysPressed.cannonRight = true;
       break;
     case "ArrowLeft":
-      keysPressed.shooterLeft = true;
+      keysPressed.cannonLeft = true;
       break;
   }
 });
@@ -139,10 +145,10 @@ window.addEventListener("keyup", event => {
       keysPressed.right = false;
       break;
     case "ArrowRight":
-      keysPressed.shooterRight = false;
+      keysPressed.cannonRight = false;
       break;
     case "ArrowLeft":
-      keysPressed.shooterLeft = false;
+      keysPressed.cannonLeft = false;
       break;
   }
 });
