@@ -1,12 +1,25 @@
-let canvas, context;
+let canvas, context, tank;
 
 function init() {
-    canvas = document.getElementById("main-canvas");
-    context = canvas.getContext("2d");
+  canvas = document.getElementById("main-canvas");
+  context = canvas.getContext("2d");
 
-    context.beginPath();
-    context.rect(50, 50, 100, 100);
-    context.fill();
+  tank = new Tank(context);
+
+  // first frame
+  requestAnimationFrame(update);
 }
 
-requestAnimationFrame()
+function update() {
+  context.clearRect(0, 0, 500, 500);
+
+  // draw tank
+  context.save();
+
+  tank.update();
+  tank.draw();
+
+  context.restore();
+
+  requestAnimationFrame(update);
+}
