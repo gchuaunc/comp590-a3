@@ -43,6 +43,7 @@ class Tank {
     this.context.rotate(this.direction * DEG_TO_RAD);
     this.context.scale(this.scale, this.scale);
     this.drawBody();
+    this.drawTreads();
 
     this.context.restore();
   }
@@ -63,6 +64,17 @@ class Tank {
 
     this.context.fill();
     this.context.stroke();
+
+    this.context.restore();
+  }
+
+  drawTreads() {
+    this.context.save();
+
+    this.context.fillStyle = "gray";
+
+    this.context.fillRect(-2, -4.5, 8, 2);
+    this.context.fillRect(-2, 3, 8, 2);
 
     this.context.restore();
   }
