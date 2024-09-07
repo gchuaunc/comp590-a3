@@ -4,7 +4,7 @@
 
 ## Rocket Tank
 
-[Screenshot of Rocket Tank](/screenshot.png)
+![Screenshot of Rocket Tank](/screenshot.png)
 
 A simple hierarchical object using HTML5 Canvas. The object I chose is a Tank which has two children:
 
