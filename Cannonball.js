@@ -30,6 +30,7 @@ class Cannonball {
     this.y += Math.sin(this.rotation * DEG_TO_RAD) * this.velocity;
 
     // bounce off walls
+    // source (trig): https://stackoverflow.com/a/1371830
     if (this.x <= 0 || this.x >= 500) {
       this.rotation = 180 - this.rotation;
     }
