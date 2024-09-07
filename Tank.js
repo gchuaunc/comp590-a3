@@ -2,6 +2,14 @@ const RAD_TO_DEG = 57.2958; // convert radians to degrees
 const DEG_TO_RAD = 1 / RAD_TO_DEG;
 
 class Tank {
+  /**
+   * @param {CanvasRenderingContext2D} context The canvas context to draw the Tank
+   * @param {number} x The x position
+   * @param {number} y The y position
+   * @param {number} speed The movement speed of the Tank
+   * @param {number} rotationSpeed The rotation speed of the Tank
+   * @param {number} scale How large to draw the tank
+   */
   constructor(context, x=250, y=250, speed=2, rotationSpeed=3, scale=3) {
     this.x = x;
     this.y = y;

@@ -2,6 +2,7 @@ class Engine {
   /**
    * @param {CanvasRenderingContext2D} context Canvas context to draw the engine
    * @param {number} motorPeriod The period of the motor movement. Larger number = slower
+   * @param {number} scale How large to make the engine
    */
   constructor(context, motorPeriod=20, scale=1) {
     this.context = context;
