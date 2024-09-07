@@ -1,4 +1,4 @@
-let canvas, context, tank, groundGradient;
+let canvas, context, tank, groundGradient, cannonballs;
 
 function init() {
   canvas = document.getElementById("main-canvas");
@@ -10,8 +10,16 @@ function init() {
   groundGradient.addColorStop(0, "#09b800");
   groundGradient.addColorStop(1, "#067300");
 
+  cannonballs = [];
+
   // first frame
   requestAnimationFrame(update);
+}
+
+function createCannonball() {
+  const rotation = tank.direction + tank.cannon.rotation;
+  const cannonball = new Cannonball(context, rotation, tank.x, tank.y);
+  cannonballs.push(cannonball);
 }
 
 function update() {
@@ -32,6 +40,14 @@ function update() {
   tank.draw();
 
   context.restore();
+
+  // draw any cannonballs on screen
+  for (const cannonball of cannonballs) {
+    if (cannonball.lifeLeft > 0) {
+      cannonball.update();
+      cannonball.draw();
+    }
+  }
 
   // TODO: cap fps to 60 for consistency for HFR devices
   requestAnimationFrame(update);
