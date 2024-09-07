@@ -12,3 +12,11 @@ div.centered {
   width: 500px;
   margin: auto;
 }
+
+div.controls {
+  background-color: #dddddd;
+  border-radius: 1em;
+  text-align: left;
+  max-width: 800px;
+  padding: 0.5em;
+}

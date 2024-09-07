@@ -8,7 +8,7 @@ class Cannon {
     // shoot with spacebar
     window.addEventListener("keydown", event => {
       if (event.key === " ") {
-        console.log("shoot");
+        console.log("shoot"); // TODO: shoot a cannonball
       }
     });
   }

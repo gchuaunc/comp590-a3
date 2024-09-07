@@ -11,6 +11,7 @@ class Tank {
     this.rotationSpeed = rotationSpeed;
     this.scale = scale;
     this.cannon = new Cannon(context);
+    this.engine = new Engine(context);
   }
 
   update() {
@@ -23,12 +24,20 @@ class Tank {
     if (keysPressed.forward) {
       let moveX = Math.cos(this.direction * DEG_TO_RAD) * this.speed;
       let moveY = Math.sin(this.direction * DEG_TO_RAD) * this.speed;
+      if (keysPressed.shift) {
+        moveX *= 1.5;
+        moveY *= 1.5;
+      }
       this.x += moveX;
       this.y += moveY;
     }
     if (keysPressed.back) {
       let moveX = Math.cos((this.direction + 180) * DEG_TO_RAD) * this.speed;
       let moveY = Math.sin((this.direction + 180) * DEG_TO_RAD) * this.speed;
+      if (keysPressed.shift) {
+        moveX *= 1.5;
+        moveY *= 1.5;
+      }
       this.x += moveX;
       this.y += moveY;
     }
@@ -50,6 +59,10 @@ class Tank {
     // draw child: cannon
     this.cannon.update();
     this.cannon.draw();
+
+    // draw child: engine
+    this.engine.update();
+    this.engine.draw();
 
     this.context.restore();
   }
@@ -102,21 +115,26 @@ let keysPressed = {
   left: false,
   back: false,
   cannonRight: false,
-  cannonLeft: false
+  cannonLeft: false,
+  shift: false
 }
 
 window.addEventListener("keydown", event => {
   //console.log(event.key + " down");
   switch (event.key) {
+    case "W":
     case "w":
       keysPressed.forward = true;
       break;
+    case "A":
     case "a":
       keysPressed.left = true;
       break;
+    case "S":
     case "s":
       keysPressed.back = true;
       break;
+    case "D":
     case "d":
       keysPressed.right = true;
       break;
@@ -126,21 +144,28 @@ window.addEventListener("keydown", event => {
     case "ArrowLeft":
       keysPressed.cannonLeft = true;
       break;
+    case "Shift":
+      keysPressed.shift = true;
+      break;
   }
 });
 
 window.addEventListener("keyup", event => {
   //console.log(event.key + " up");
   switch (event.key) {
+    case "W":
     case "w":
       keysPressed.forward = false;
       break;
+    case "A":
     case "a":
       keysPressed.left = false;
       break;
+    case "S":
     case "s":
       keysPressed.back = false;
       break;
+    case "D":
     case "d":
       keysPressed.right = false;
       break;
@@ -149,6 +174,9 @@ window.addEventListener("keyup", event => {
       break;
     case "ArrowLeft":
       keysPressed.cannonLeft = false;
+      break;
+    case "Shift":
+      keysPressed.shift = false;
       break;
   }
 });

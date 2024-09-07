@@ -33,5 +33,6 @@ function update() {
 
   context.restore();
 
+  // TODO: cap fps to 60 for consistency for HFR devices
   requestAnimationFrame(update);
 }

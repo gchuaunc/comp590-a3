@@ -5,12 +5,23 @@
         <link rel="stylesheet" href="styles.css">
         <script src="Tank.js"></script>
         <script src="Cannon.js"></script>
+        <script src="Engine.js"></script>
+        <title>Rocket Tank Simulator | COMP 590-172 F24</title>
     </head>
     <body onload="init();">
-        <h1>Tank Simulator</h1>
+        <h1>Rocket Tank Simulator</h1>
         <p>Gabrian C</p>
         <div class="centered">
             <canvas id="main-canvas" width="500" height="500"></canvas>
+        </div>
+        <div class="centered controls">
+            <p>Controls:</p>
+            <ul>
+                <li>W A S D: Tank movement</li>
+                <li>Left and right arrow keys: Rotate cannon</li>
+                <li>Space: Shoot cannonball</li>
+                <li>Shift: Boost</li>
+            </ul>
         </div>
     </body>
 </html>
