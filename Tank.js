@@ -63,14 +63,14 @@ class Tank {
     this.context.scale(this.scale, this.scale);
     this.drawBody();
     this.drawTreads();
-
-    // draw child: cannon
-    this.cannon.update();
-    this.cannon.draw();
-
+    
     // draw child: engine
     this.engine.update();
     this.engine.draw();
+    
+    // draw child: cannon
+    this.cannon.update();
+    this.cannon.draw();
 
     this.context.restore();
   }
