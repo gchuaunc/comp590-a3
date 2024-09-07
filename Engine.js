@@ -4,7 +4,7 @@ class Engine {
    * @param {number} motorPeriod The period of the motor movement. Larger number = slower
    * @param {number} scale How large to make the engine
    */
-  constructor(context, motorPeriod=20, scale=1) {
+  constructor(context, motorPeriod=10, scale=1) {
     this.context = context;
     this.motorPeriod = motorPeriod;
     this.scale = scale;

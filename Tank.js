@@ -9,8 +9,9 @@ class Tank {
    * @param {number} speed The movement speed of the Tank
    * @param {number} rotationSpeed The rotation speed of the Tank
    * @param {number} scale How large to draw the tank
+   * @param {number} boostMultiplier How much faster to move the tank when boosting using Shift
    */
-  constructor(context, x=250, y=250, speed=2, rotationSpeed=3, scale=3) {
+  constructor(context, x=250, y=250, speed=2, rotationSpeed=3, scale=3, boostMultiplier=2) {
     this.x = x;
     this.y = y;
     this.context = context;
@@ -18,6 +19,7 @@ class Tank {
     this.speed = speed;
     this.rotationSpeed = rotationSpeed;
     this.scale = scale;
+    this.boostMultiplier = boostMultiplier;
     this.cannon = new Cannon(context);
     this.engine = new Engine(context);
   }
@@ -33,8 +35,8 @@ class Tank {
       let moveX = Math.cos(this.direction * DEG_TO_RAD) * this.speed;
       let moveY = Math.sin(this.direction * DEG_TO_RAD) * this.speed;
       if (keysPressed.shift) {
-        moveX *= 1.5;
-        moveY *= 1.5;
+        moveX *= this.boostMultiplier;
+        moveY *= this.boostMultiplier;
       }
       this.x += moveX;
       this.y += moveY;
@@ -43,8 +45,8 @@ class Tank {
       let moveX = Math.cos((this.direction + 180) * DEG_TO_RAD) * this.speed;
       let moveY = Math.sin((this.direction + 180) * DEG_TO_RAD) * this.speed;
       if (keysPressed.shift) {
-        moveX *= 1.5;
-        moveY *= 1.5;
+        moveX *= this.boostMultiplier;
+        moveY *= this.boostMultiplier;
       }
       this.x += moveX;
       this.y += moveY;
