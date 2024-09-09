@@ -9,7 +9,7 @@ canvas {
 }
 
 div.centered {
-  width: 500px;
+  width: fit-content;
   margin: auto;
 }
 

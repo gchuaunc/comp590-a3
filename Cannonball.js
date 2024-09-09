@@ -31,10 +31,10 @@ class Cannonball {
 
     // bounce off walls
     // source (trig): https://stackoverflow.com/a/1371830
-    if (this.x <= 0 || this.x >= 500) {
+    if (this.x <= 0 || this.x >= WIDTH) {
       this.rotation = 180 - this.rotation;
     }
-    if (this.y <= 0 || this.y >= 500) {
+    if (this.y <= 0 || this.y >= HEIGHT) {
       this.rotation = -this.rotation;
     }
   }

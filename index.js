@@ -8,6 +8,8 @@ const WIDTH = 500;
 function init() {
   canvas = document.getElementById("main-canvas");
   context = canvas.getContext("2d");
+  canvas.height = HEIGHT;
+  canvas.width = WIDTH;
 
   tank = new Tank(context);
 
