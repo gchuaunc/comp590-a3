@@ -1,9 +1,9 @@
 class Cannon {
   /**
    * @param {CanvasRenderingContext2D} context The canvas context to draw the cannon
-   * @param {*} rotationSpeed Speed to rotate the cannon when pressing left or right arrow keys
-   * @param {*} rotation Current rotation in degrees relative to the Tank
-   * @param {*} scale How large to draw the cannon
+   * @param {number} rotationSpeed Speed to rotate the cannon when pressing left or right arrow keys
+   * @param {number} rotation Current rotation in degrees relative to the Tank
+   * @param {number} scale How large to draw the cannon
    */
   constructor(context, rotationSpeed=3, rotation=0, scale=1) {
     this.rotation = rotation;

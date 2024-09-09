@@ -1,6 +1,3 @@
-const RAD_TO_DEG = 57.2958; // convert radians to degrees
-const DEG_TO_RAD = 1 / RAD_TO_DEG;
-
 class Tank {
   /**
    * @param {CanvasRenderingContext2D} context The canvas context to draw the Tank
@@ -51,8 +48,8 @@ class Tank {
       this.x += moveX;
       this.y += moveY;
     }
-    this.x = clamp(this.x, 0, 500);
-    this.y = clamp(this.y, 0, 500);
+    this.x = clamp(this.x, 0, WIDTH);
+    this.y = clamp(this.y, 0, HEIGHT);
   }
 
   draw() {
@@ -108,85 +105,3 @@ class Tank {
     this.context.restore();
   }
 }
-
-// helper functions
-
-function clamp(value, min, max) {
-  if (value < min) return min;
-  if (value > max) return max;
-  return value;
-}
-
-// handling user input
-
-let keysPressed = {
-  forward: false,
-  right: false,
-  left: false,
-  back: false,
-  cannonRight: false,
-  cannonLeft: false,
-  shift: false
-}
-
-window.addEventListener("keydown", event => {
-  //console.log(event.key + " down");
-  switch (event.key) {
-    case "W":
-    case "w":
-      keysPressed.forward = true;
-      break;
-    case "A":
-    case "a":
-      keysPressed.left = true;
-      break;
-    case "S":
-    case "s":
-      keysPressed.back = true;
-      break;
-    case "D":
-    case "d":
-      keysPressed.right = true;
-      break;
-    case "ArrowRight":
-      keysPressed.cannonRight = true;
-      break;
-    case "ArrowLeft":
-      keysPressed.cannonLeft = true;
-      break;
-    case "Shift":
-      keysPressed.shift = true;
-      break;
-  }
-});
-
-window.addEventListener("keyup", event => {
-  //console.log(event.key + " up");
-  switch (event.key) {
-    case "W":
-    case "w":
-      keysPressed.forward = false;
-      break;
-    case "A":
-    case "a":
-      keysPressed.left = false;
-      break;
-    case "S":
-    case "s":
-      keysPressed.back = false;
-      break;
-    case "D":
-    case "d":
-      keysPressed.right = false;
-      break;
-    case "ArrowRight":
-      keysPressed.cannonRight = false;
-      break;
-    case "ArrowLeft":
-      keysPressed.cannonLeft = false;
-      break;
-    case "Shift":
-      keysPressed.shift = false;
-      break;
-  }
-});
