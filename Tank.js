@@ -50,6 +50,10 @@ class Tank {
     }
     this.x = clamp(this.x, 0, WIDTH);
     this.y = clamp(this.y, 0, HEIGHT);
+
+    // update all children
+    this.engine.update();
+    this.cannon.update();
   }
 
   draw() {
@@ -64,11 +68,9 @@ class Tank {
     this.drawTreads();
     
     // draw child: engine
-    this.engine.update();
     this.engine.draw();
     
     // draw child: cannon
-    this.cannon.update();
     this.cannon.draw();
 
     this.context.restore();
