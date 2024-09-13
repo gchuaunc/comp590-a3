@@ -1,4 +1,4 @@
-let canvas, context, tank, groundGradient, cannonballs, lastFrameTimeMs, deltaTime, fps, framesThisSecond;
+let canvas, context, tank, groundGradient, cannonballs, lastFrameTimeMs, deltaTime, fps, framesThisSecond, ups, updatesThisSecond;
 const FIXED_DELTA_TIME = 1000 / 60; // how long a fixedupdate (physics/game) cycle is
 const RAD_TO_DEG = 57.2958; // convert radians to degrees
 const DEG_TO_RAD = 1 / RAD_TO_DEG;
@@ -23,11 +23,15 @@ function init() {
   deltaTime = 0;
   fps = 0;
   framesThisSecond = 0;
+  ups = 0;
+  updatesThisSecond = 0;
 
-  // fps counting and reset every second
+  // fps and fixedupdate counting and reset every second
   setInterval(() => {
     fps = framesThisSecond;
     framesThisSecond = 0;
+    ups = updatesThisSecond;
+    updatesThisSecond = 0;
   }, 1000);
 
   // first frame
@@ -59,6 +63,8 @@ function fixedUpdate() {
       cannonball.update();
     }
   }
+
+  updatesThisSecond++;
 }
 
 function draw() {
@@ -74,7 +80,6 @@ function draw() {
   // draw tank
   context.save();
 
-  tank.update();
   tank.draw();
 
   context.restore();
@@ -87,7 +92,7 @@ function draw() {
   }
 
   // count frames
-  context.fillText(`${fps} FPS`, 10, 10);
+  context.fillText(`${fps} FPS, ${ups} UPS`, 10, 10);
   framesThisSecond++;
 
 }
