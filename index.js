@@ -1,4 +1,4 @@
-let canvas, context, tank, groundGradient, cannonballs, lastFrameTimeMs, deltaTime, fps, framesThisSecond, ups, updatesThisSecond;
+let canvas, context, playerTank, groundGradient, cannonballs, lastFrameTimeMs, deltaTime, fps, framesThisSecond, ups, updatesThisSecond, enemies;
 const FIXED_DELTA_TIME = 1000 / 60; // how long a fixedupdate (physics/game) cycle is
 const RAD_TO_DEG = 57.2958; // convert radians to degrees
 const DEG_TO_RAD = 1 / RAD_TO_DEG;
@@ -11,7 +11,9 @@ function init() {
   canvas.height = HEIGHT;
   canvas.width = WIDTH;
 
-  tank = new Tank(context);
+  playerTank = new Tank(context);
+
+  enemies = [new Enemy(context, 100, 100), new Enemy(context, 400, 400), new Enemy(context, 100, 400)];
 
   // source for gradient: https://www.w3schools.com/tags/canvas_createradialgradient.asp
   groundGradient = context.createRadialGradient(WIDTH/2, HEIGHT/2, 50, WIDTH/2, HEIGHT/2, (WIDTH+HEIGHT)/4);
@@ -56,12 +58,18 @@ function update(timestamp) {
 
 // separate drawing from updating (physics and game)
 function fixedUpdate() {
-  tank.update();
+  playerTank.update();
+  
   // update all cannonballs on screen
   for (const cannonball of cannonballs) {
     if (cannonball.lifeLeft > 0) {
       cannonball.update();
     }
+  }
+
+  // update all enemies
+  for (const enemy of enemies) {
+    enemy.update();
   }
 
   updatesThisSecond++;
@@ -80,7 +88,7 @@ function draw() {
   // draw tank
   context.save();
 
-  tank.draw();
+  playerTank.draw();
 
   context.restore();
 
@@ -89,6 +97,11 @@ function draw() {
     if (cannonball.lifeLeft > 0) {
       cannonball.draw();
     }
+  }
+
+  // draw all enemies
+  for (const enemy of enemies) {
+    enemy.draw();
   }
 
   // count frames
@@ -105,9 +118,8 @@ function clamp(value, min, max) {
   return value;
 }
 
-function createCannonball() {
-  const rotation = tank.direction + tank.cannon.rotation;
-  const cannonball = new Cannonball(context, rotation, tank.x, tank.y);
+function createCannonball(x=playerTank.x, y=playerTank.y, rotation=playerTank.direction + playerTank.cannon.rotation) {
+  const cannonball = new Cannonball(context, rotation, x, y);
   cannonballs.push(cannonball);
 }
 

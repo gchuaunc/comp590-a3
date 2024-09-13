@@ -1,14 +1,15 @@
 class Tank {
   /**
    * @param {CanvasRenderingContext2D} context The canvas context to draw the Tank
-   * @param {number} x The x position
-   * @param {number} y The y position
+   * @param {number} x The starting x position
+   * @param {number} y The starting y position
+   * @param {string} color The color of the tank's body
    * @param {number} speed The movement speed of the Tank
    * @param {number} rotationSpeed The rotation speed of the Tank
    * @param {number} scale How large to draw the tank
    * @param {number} boostMultiplier How much faster to move the tank when boosting using Shift
    */
-  constructor(context, x=250, y=250, speed=2, rotationSpeed=3, scale=3, boostMultiplier=2) {
+  constructor(context, x=250, y=250, color="#184016", speed=2, rotationSpeed=3, scale=3, boostMultiplier=2) {
     this.x = x;
     this.y = y;
     this.context = context;
@@ -17,6 +18,7 @@ class Tank {
     this.rotationSpeed = rotationSpeed;
     this.scale = scale;
     this.boostMultiplier = boostMultiplier;
+    this.color = color;
     this.cannon = new Cannon(context);
     this.engine = new Engine(context);
   }
@@ -79,7 +81,7 @@ class Tank {
   drawBody() {
     this.context.save();
 
-    this.context.fillStyle = "#184016";
+    this.context.fillStyle = this.color;
     this.context.strokeStyle = "black";
 
     this.context.beginPath();
