@@ -9,13 +9,13 @@
         <script src="Cannonball.js"></script>
         <script src="Enemy.js"></script>
         <script src="EnemyCannon.js"></script>
-        <title>Rocket Tank | COMP 590-172 F24</title>
+        <title>Rocket Tanks | COMP 590-172 F24</title>
     </head>
     <body onload="init();">
         <h1>Rocket Tank</h1>
         <p>Gabrian C</p>
         <div class="centered">
-            <canvas id="main-canvas" width="500" height="500"></canvas>
+            <canvas id="main-canvas" width="500" height="500" onclick="onClickCanvasHandler();"></canvas>
         </div>
         <div class="centered controls">
             <p>Controls:</p>
@@ -25,6 +25,7 @@
                 <li>Space: Shoot cannonball</li>
                 <li>Shift: Boost</li>
             </ul>
+            <button onclick="spawnEnemy();">Spawn Another Enemy</button>
         </div>
     </body>
 </html>

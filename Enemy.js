@@ -17,9 +17,14 @@ class Enemy {
     this.color = color;
     this.cannon = new EnemyCannon(context, this);
     this.engine = new Engine(context, false);
-    this.isAlive = true;
+    this.isAlive = true; // should not be set directly because the interval must be cleared
 
     this.chooseNewTarget();
+  }
+
+  die() {
+    this.isAlive = false;
+    clearInterval(this.cannon.shootInterval);
   }
 
   // choose a new random location to go to

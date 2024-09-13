@@ -7,8 +7,9 @@ class Cannonball {
    * @param {number} y The initial Y position of the cannonball
    * @param {number} life How long (frames) for the cannonball to live before being deleted
    * @param {number} scale Scale of the cannonball
+   * @param {string} color Color of the cannonball
    */
-  constructor(context, rotation, x, y, speed=3, life=600, scale=1) {
+  constructor(context, rotation, x, y, color="red", speed=3, life=600, scale=1) {
     this.context = context;
     this.rotation = rotation;
     this.scale = scale;
@@ -16,6 +17,7 @@ class Cannonball {
     this.life = life;
     this.x = x;
     this.y = y;
+    this.color = color;
 
     this.velocity = speed;
     this.lifeLeft = life;
@@ -42,7 +44,7 @@ class Cannonball {
   draw() {
     this.context.save();
 
-    this.context.fillStyle = "red";
+    this.context.fillStyle = this.color;
     this.context.strokeStyle = "black";
 
     this.context.beginPath();

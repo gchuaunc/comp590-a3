@@ -6,7 +6,7 @@ class EnemyCannon {
    * @param {Enemy} parent The parent Enemy object
    * @param {number} shootInterval How often (in ms) to shoot a cannon at the player
    */
-  constructor(context, parent, shootInterval=3000, rotation=0, scale=1) {
+  constructor(context, parent, shootInterval=2000, rotation=0, scale=1) {
     this.rotation = rotation;
     this.scale = scale;
     this.context = context;
@@ -14,8 +14,8 @@ class EnemyCannon {
     this.shootInterval = shootInterval + (Math.random() * 500); // add a little randomness
 
     // create cannonballs every so often
-    setInterval(() => {
-      createCannonball(parent.x, parent.y, parent.direction + this.rotation);
+    this.shootInterval = setInterval(() => {
+      createCannonball(parent.x, parent.y, parent.direction + this.rotation, false);
     }, this.shootInterval);
   }
 
