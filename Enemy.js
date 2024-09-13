@@ -17,6 +17,7 @@ class Enemy {
     this.color = color;
     this.cannon = new EnemyCannon(context, this);
     this.engine = new Engine(context, false);
+    this.isAlive = true;
 
     this.chooseNewTarget();
   }

@@ -69,7 +69,15 @@ function fixedUpdate() {
 
   // update all enemies
   for (const enemy of enemies) {
+    if (!enemy.isAlive) continue;
     enemy.update();
+    // if an enemy is too close to a cannonball, it is destroyed
+    for (const cannonball of cannonballs) {
+      if (cannonball.lifeLeft > 0 && distance(enemy.x, cannonball.x, enemy.y, cannonball.y) < 20) {
+        enemy.isAlive = false;
+        break;
+      }
+    }
   }
 
   updatesThisSecond++;
@@ -101,7 +109,9 @@ function draw() {
 
   // draw all enemies
   for (const enemy of enemies) {
-    enemy.draw();
+    if (enemy.isAlive) {
+      enemy.draw();
+    }
   }
 
   // count frames
@@ -121,6 +131,10 @@ function clamp(value, min, max) {
 function createCannonball(x=playerTank.x, y=playerTank.y, rotation=playerTank.direction + playerTank.cannon.rotation) {
   const cannonball = new Cannonball(context, rotation, x, y);
   cannonballs.push(cannonball);
+}
+
+function distance(x1, x2, y1, y2) {
+  return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
 
 // handling user input
