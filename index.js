@@ -1,5 +1,5 @@
-let canvas, context, tank, groundGradient, cannonballs, lastFrameTimeMs;
-const TARGET_FPS = 60;
+let canvas, context, tank, groundGradient, cannonballs, lastFrameTimeMs, deltaTime, fps, framesThisSecond;
+const FIXED_DELTA_TIME = 1000 / 60; // how long a fixedupdate (physics/game) cycle is
 const RAD_TO_DEG = 57.2958; // convert radians to degrees
 const DEG_TO_RAD = 1 / RAD_TO_DEG;
 const HEIGHT = 500;
@@ -20,24 +20,45 @@ function init() {
 
   cannonballs = [];
   lastFrameTimeMs = 0;
+  deltaTime = 0;
+  fps = 0;
+  framesThisSecond = 0;
+
+  // fps counting and reset every second
+  setInterval(() => {
+    fps = framesThisSecond;
+    framesThisSecond = 0;
+  }, 1000);
 
   // first frame
   requestAnimationFrame(update);
 }
 
 function update(timestamp) {
-  // cap frame rate at 60 for consistency for HFR devices
-  if (timestamp < lastFrameTimeMs + (1000 / TARGET_FPS)) {
-    requestAnimationFrame(update);
-    return;
-  }
-
-  // update and draw if we got here
+  // draw every frame, but update on a constant 60 updates/sec rate
+  // source: https://www.isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing
+  deltaTime += timestamp - lastFrameTimeMs;
   lastFrameTimeMs = timestamp;
+
+  while (deltaTime >= FIXED_DELTA_TIME) {
+    fixedUpdate();
+    deltaTime -= FIXED_DELTA_TIME;
+  }
 
   draw();
 
   requestAnimationFrame(update);
+}
+
+// separate drawing from updating (physics and game)
+function fixedUpdate() {
+  tank.update();
+  // update all cannonballs on screen
+  for (const cannonball of cannonballs) {
+    if (cannonball.lifeLeft > 0) {
+      cannonball.update();
+    }
+  }
 }
 
 function draw() {
@@ -61,10 +82,14 @@ function draw() {
   // draw any cannonballs on screen
   for (const cannonball of cannonballs) {
     if (cannonball.lifeLeft > 0) {
-      cannonball.update();
       cannonball.draw();
     }
   }
+
+  // count frames
+  context.fillText(`${fps} FPS`, 10, 10);
+  framesThisSecond++;
+
 }
 
 // helper functions
@@ -121,6 +146,9 @@ window.addEventListener("keydown", event => {
     case "Shift":
       keysPressed.shift = true;
       break;
+  }
+  if (event.key === " ") {
+    event.preventDefault();
   }
 });
 
